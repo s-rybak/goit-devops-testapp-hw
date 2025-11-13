@@ -28,7 +28,7 @@ spec:
   }
 
   environment {
-    ECR_REGISTRY = "864004266599.dkr.ecr.us-west-2.amazonaws.com"
+    ECR_REGISTRY = "767415906716.dkr.ecr.us-east-1.amazonaws.com/lesson-5-ecr"
     IMAGE_NAME   = "app"
     IMAGE_TAG    = "v1.0.${BUILD_NUMBER}"
 
@@ -59,7 +59,7 @@ spec:
         container('git') {
           withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PAT')]) {
             sh '''
-              git clone <https://$GIT_USERNAME:$GIT_PAT@$GIT_REPO_URL>
+              git clone https://$GIT_USERNAME:$GIT_PAT@$GIT_REPO_URL
               cd lesson-7/charts/django-app
 
               sed -i "s/tag: .*/tag: $IMAGE_TAG/" values.yaml
