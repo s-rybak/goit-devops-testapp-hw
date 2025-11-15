@@ -62,8 +62,8 @@ spec:
               git clone https://$GIT_USERNAME:$GIT_PAT@$GIT_REPO_URL
               cd goit-devops-hw
               git config --global --add safe.directory /home/jenkins/agent/workspace/goit-django-docker
-              git checkout lesson-7
-              cd lesson-7/charts/django-app
+              git checkout lesson-8-9
+              cd Progect/charts/django-app
 
               sed -i "s/tag: .*/tag: $IMAGE_TAG/" values.yaml
 
@@ -72,7 +72,7 @@ spec:
 
               git add values.yaml
               git commit -m "Update image tag to $IMAGE_TAG"
-              git push origin lesson-7
+              git push origin lesson-8-9
             '''
           }
         }
