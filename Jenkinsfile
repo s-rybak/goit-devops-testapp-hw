@@ -28,13 +28,13 @@ spec:
   }
 
   environment {
-    ECR_REGISTRY = "767415906716.dkr.ecr.us-east-1.amazonaws.com/lesson-5-ecr"
-    IMAGE_NAME   = "app"
+    ECR_REGISTRY = "767415906716.dkr.ecr.us-east-1.amazonaws.com"
+    IMAGE_NAME   = "lesson-5-ecr"
     IMAGE_TAG    = "v1.0.${BUILD_NUMBER}"
 
     COMMIT_EMAIL = "jenkins@localhost"
     COMMIT_NAME  = "jenkins"
-    GIT_REPO_URL = "https://github.com/s-rybak/goit-devops-hw/tree/lesson-7"
+    GIT_REPO_URL = "github.com/s-rybak/goit-devops-hw/"
   }
 
   stages {
@@ -60,6 +60,9 @@ spec:
           withCredentials([usernamePassword(credentialsId: 'github-token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PAT')]) {
             sh '''
               git clone https://$GIT_USERNAME:$GIT_PAT@$GIT_REPO_URL
+              cd goit-devops-hw
+              git config --global --add safe.directory /home/jenkins/agent/workspace/goit-django-docker
+              git checkout lesson-7
               cd lesson-7/charts/django-app
 
               sed -i "s/tag: .*/tag: $IMAGE_TAG/" values.yaml
@@ -69,7 +72,7 @@ spec:
 
               git add values.yaml
               git commit -m "Update image tag to $IMAGE_TAG"
-              git push origin main
+              git push origin lesson-7
             '''
           }
         }
